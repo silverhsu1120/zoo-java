@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 
 import com.silver.zoo.R;
 import com.silver.zoo.databinding.FragmentPlantInfoBinding;
-import com.silver.zoo.model.Plant;
+import com.silver.zoo.model.bean.Plant;
 import com.silver.zoo.viewmodel.PlantViewModel;
 
 import java.util.Objects;
@@ -58,6 +58,12 @@ public class PlantInfoFragment extends Fragment {
     private void initViewModel() {
         binding.setViewModel(ViewModelProviders.of(getActivityNonNull()).get(PlantViewModel.class));
         binding.setLifecycleOwner(this);
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         binding.getViewModel().getPlant().setValue(plant);
     }
 }

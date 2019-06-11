@@ -5,9 +5,9 @@ import android.arch.lifecycle.ViewModel;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.silver.zoo.model.api.ApiHouseRes;
+import com.silver.zoo.model.api.ApiPlantRes;
 import com.silver.zoo.model.api.ApiServiceManager;
-import com.silver.zoo.model.bean.House;
+import com.silver.zoo.model.bean.Plant;
 
 import java.util.List;
 
@@ -18,34 +18,34 @@ import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.ResponseBody;
 
-public class HouseListViewModel extends ViewModel {
+public class PlantListViewModel extends ViewModel {
 
-    private final MutableLiveData<List<House>> houses = new MutableLiveData<>();
+    private final MutableLiveData<List<Plant>> plants = new MutableLiveData<>();
 
     private CompositeDisposable disposable = new CompositeDisposable();
 
-    public MutableLiveData<List<House>> getHouses() {
-        return houses;
+    public MutableLiveData<List<Plant>> getPlants() {
+        return plants;
     }
 
-    public void fetchHouseList(String query, Integer limit, Integer offset) {
-        disposable.add(ApiServiceManager.getInstance().getApiHouse()
+    public void fetchPlantList(String query, Integer limit, Integer offset) {
+        disposable.add(ApiServiceManager.getInstance().getApiPlant()
                 .read(query, limit, offset)
                 .subscribeOn(Schedulers.io())
-                .map(new Function<ResponseBody, ApiHouseRes>() {
+                .map(new Function<ResponseBody, ApiPlantRes>() {
                     @Override
-                    public ApiHouseRes apply(ResponseBody body) throws Exception {
+                    public ApiPlantRes apply(ResponseBody body) throws Exception {
                         String json = body.string();
                         JsonObject object = new Gson().fromJson(json, JsonObject.class);
                         String result = object.getAsJsonObject("result").toString();
-                        return new Gson().fromJson(result, ApiHouseRes.class);
+                        return new Gson().fromJson(result, ApiPlantRes.class);
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<ApiHouseRes>() {
+                .subscribe(new Consumer<ApiPlantRes>() {
                     @Override
-                    public void accept(ApiHouseRes res) throws Exception {
-                        houses.setValue(res.getHouses());
+                    public void accept(ApiPlantRes res) throws Exception {
+                        plants.setValue(res.getPlants());
                     }
                 })
         );

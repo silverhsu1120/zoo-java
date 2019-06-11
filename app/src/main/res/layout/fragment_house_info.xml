@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="com.silver.zoo.viewmodel.HouseViewModel" />
+            type="com.silver.zoo.viewmodel.PlantListViewModel" />
     </data>
 
     <android.support.constraint.ConstraintLayout
@@ -24,7 +24,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:plants="@{viewModel.plants}" />
 
     </android.support.constraint.ConstraintLayout>
 

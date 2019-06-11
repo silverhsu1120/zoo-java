@@ -13,8 +13,7 @@ import android.view.ViewGroup;
 
 import com.silver.zoo.R;
 import com.silver.zoo.databinding.FragmentHouseListBinding;
-import com.silver.zoo.model.DataGenerator;
-import com.silver.zoo.model.House;
+import com.silver.zoo.model.bean.House;
 import com.silver.zoo.view.activity.MainActivity;
 import com.silver.zoo.view.adapter.HouseListAdapter;
 import com.silver.zoo.viewmodel.HouseListViewModel;
@@ -58,15 +57,14 @@ public class HouseListFragment extends Fragment implements HouseListAdapter.OnIt
     }
 
     private void initViewModel() {
-        HouseListViewModel viewModel = ViewModelProviders.of(getActivityNonNull()).get(HouseListViewModel.class);
-        binding.setViewModel(viewModel);
+        binding.setViewModel(ViewModelProviders.of(getActivityNonNull()).get(HouseListViewModel.class));
         binding.setLifecycleOwner(this);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        binding.getViewModel().getHouses().setValue(DataGenerator.getHouseList(this.getContext()));
+        binding.getViewModel().fetchHouseList(null, null, null);
     }
 
     @Override

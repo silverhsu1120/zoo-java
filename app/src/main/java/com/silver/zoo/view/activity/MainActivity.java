@@ -11,8 +11,8 @@ import android.view.View;
 
 import com.silver.zoo.R;
 import com.silver.zoo.databinding.ActivityMainBinding;
-import com.silver.zoo.model.House;
-import com.silver.zoo.model.Plant;
+import com.silver.zoo.model.bean.House;
+import com.silver.zoo.model.bean.Plant;
 import com.silver.zoo.view.fragment.HouseInfoFragment;
 import com.silver.zoo.view.fragment.HouseListFragment;
 import com.silver.zoo.view.fragment.PlantInfoFragment;
@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void displayPlantInfo(Plant plant) {
-        viewModel.pushState(R.drawable.ic_arrow_back_black, plant.getName());
+        viewModel.pushState(R.drawable.ic_arrow_back_black, plant.getChineseName());
         addFragment(PlantInfoFragment.newInstance(plant), TAG_PLANT_INFO);
     }
 
@@ -92,6 +92,8 @@ public class MainActivity extends AppCompatActivity {
                 viewModel.popState();
                 removeFragment(getSupportFragmentManager().findFragmentByTag(TAG_HOUSE_INFO));
                 break;
+            case 1:
+                finish();
             default:
                 break;
         }

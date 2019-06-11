@@ -1,10 +1,8 @@
 package com.silver.zoo.view.fragment;
 
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.DividerItemDecoration;
@@ -15,11 +13,11 @@ import android.view.ViewGroup;
 
 import com.silver.zoo.R;
 import com.silver.zoo.databinding.FragmentHouseInfoBinding;
-import com.silver.zoo.model.House;
-import com.silver.zoo.model.Plant;
+import com.silver.zoo.model.bean.House;
+import com.silver.zoo.model.bean.Plant;
 import com.silver.zoo.view.activity.MainActivity;
 import com.silver.zoo.view.adapter.HouseInfoAdapter;
-import com.silver.zoo.viewmodel.HouseViewModel;
+import com.silver.zoo.viewmodel.PlantListViewModel;
 
 import java.util.Objects;
 
@@ -71,23 +69,14 @@ public class HouseInfoFragment extends Fragment implements HouseInfoAdapter.OnIt
     }
 
     private void initViewModel() {
-        binding.setViewModel(ViewModelProviders.of(getActivityNonNull()).get(HouseViewModel.class));
+        binding.setViewModel(ViewModelProviders.of(getActivityNonNull()).get(PlantListViewModel.class));
         binding.setLifecycleOwner(this);
-        binding.getViewModel().getHouse().observe(this, new Observer<House>() {
-            @Override
-            public void onChanged(@Nullable House house) {
-                if (binding.rvHouseInfo.getAdapter() instanceof HouseInfoAdapter) {
-                    HouseInfoAdapter adapter = (HouseInfoAdapter) binding.rvHouseInfo.getAdapter();
-                    adapter.load(house);
-                }
-            }
-        });
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        binding.getViewModel().getHouse().setValue(house);
+        binding.getViewModel().fetchPlantList(house.getName(), null, null);
     }
 
     @Override

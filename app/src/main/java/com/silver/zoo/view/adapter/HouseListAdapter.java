@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 
 import com.silver.zoo.R;
 import com.silver.zoo.databinding.ItemHouseBinding;
-import com.silver.zoo.model.House;
+import com.silver.zoo.model.bean.House;
 import com.silver.zoo.viewmodel.HouseViewModel;
 
 import java.util.ArrayList;

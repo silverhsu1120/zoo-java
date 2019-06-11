@@ -6,6 +6,8 @@
 
     <data>
 
+        <import type="android.text.TextUtils" />
+
         <variable
             name="viewModel"
             type="com.silver.zoo.viewmodel.HouseViewModel" />
@@ -21,25 +23,11 @@
             android:layout_width="0dp"
             android:layout_height="200dp"
             android:scaleType="centerCrop"
-            app:image="@{viewModel.house.resId}"
+            app:image="@{viewModel.house.picUrl}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/ic_butterfly" />
-
-        <TextView
-            android:id="@+id/tv_intro"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:paddingStart="16dp"
-            android:paddingTop="8dp"
-            android:paddingEnd="16dp"
-            android:text="@{viewModel.house.intro}"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_picture"
-            tools:text="@string/msg_insect_house" />
 
         <TextView
             android:id="@+id/tv_info"
@@ -48,14 +36,42 @@
             android:paddingStart="16dp"
             android:paddingTop="8dp"
             android:paddingEnd="16dp"
-            android:paddingBottom="8dp"
             android:text="@{viewModel.house.info}"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_picture"
+            tools:text="@string/msg_insect_house" />
+
+        <TextView
+            android:id="@+id/tv_memo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="16dp"
+            android:text="@{TextUtils.isEmpty(viewModel.house.memo) ? @string/msg_memo : viewModel.house.memo}"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_info"
+            tools:text="@string/msg_memo" />
+
+        <TextView
+            android:id="@+id/tv_category"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="8dp"
+            android:text="@{viewModel.house.category}"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_intro"
-            tools:text="@string/msg_no_closed_info" />
+            app:layout_constraintTop_toBottomOf="@id/tv_memo"
+            tools:text="@string/msg_category" />
 
     </android.support.constraint.ConstraintLayout>
 

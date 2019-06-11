@@ -2,6 +2,7 @@ package com.silver.zoo.view.adapter;
 
 import android.arch.lifecycle.LifecycleOwner;
 import android.content.Context;
+import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.support.annotation.NonNull;
@@ -13,10 +14,13 @@ import android.view.ViewGroup;
 import com.silver.zoo.R;
 import com.silver.zoo.databinding.ItemHouseInfoBinding;
 import com.silver.zoo.databinding.ItemPlantBinding;
-import com.silver.zoo.model.House;
-import com.silver.zoo.model.Plant;
+import com.silver.zoo.model.bean.House;
+import com.silver.zoo.model.bean.Plant;
 import com.silver.zoo.viewmodel.HouseViewModel;
 import com.silver.zoo.viewmodel.PlantViewModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HouseInfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -30,14 +34,22 @@ public class HouseInfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private House house;
     private OnItemClickListener listener;
 
+    private List<Plant> plants = new ArrayList<>();
+
     public HouseInfoAdapter(House house, OnItemClickListener listener) {
         this.house = house;
         this.listener = listener;
     }
 
-    public void load(House house) {
-        this.house = house;
-        notifyDataSetChanged();
+    @BindingAdapter({"plants"})
+    public static void load(RecyclerView rv, List<Plant> plants) {
+        if (plants == null) return;
+        if (rv.getAdapter() instanceof HouseInfoAdapter) {
+            HouseInfoAdapter adapter = (HouseInfoAdapter) rv.getAdapter();
+            adapter.plants.clear();
+            adapter.plants.addAll(plants);
+            adapter.notifyDataSetChanged();
+        }
     }
 
     @NonNull
@@ -58,13 +70,13 @@ public class HouseInfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         if (holder instanceof HeaderHolder) {
             ((HeaderHolder) holder).bind(house);
         } else {
-            ((ViewHolder) holder).bind(house.getPlants().get(position - 1));
+            ((ViewHolder) holder).bind(plants.get(position - 1));
         }
     }
 
     @Override
     public int getItemCount() {
-        return house.getPlants().size() + 1;
+        return plants.size() + 1;
     }
 
     @Override

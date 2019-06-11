@@ -36,11 +36,23 @@
                     android:layout_width="0dp"
                     android:layout_height="200dp"
                     android:scaleType="centerCrop"
-                    app:image="@{viewModel.plant.resId}"
+                    app:image="@{viewModel.plant.picUrl}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:src="@drawable/ic_fire_spike" />
+
+                <include
+                    android:id="@+id/view_section_name"
+                    layout="@layout/view_section"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_picture"
+                    app:message="@{viewModel.plant.englishName}"
+                    app:subject="@{viewModel.plant.chineseName}" />
 
                 <include
                     android:id="@+id/view_section_alias"
@@ -50,34 +62,46 @@
                     android:layout_marginTop="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/iv_picture"
+                    app:layout_constraintTop_toBottomOf="@id/view_section_name"
                     app:message="@{viewModel.plant.alias}"
                     app:subject="@{@string/alias}" />
 
                 <include
-                    android:id="@+id/view_section_intro"
+                    android:id="@+id/view_section_brief"
                     layout="@layout/view_section"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/view_section_alias"
-                    app:message="@{viewModel.plant.intro}"
+                    app:message="@{viewModel.plant.brief}"
                     app:subject="@{@string/intro}" />
 
                 <include
-                    android:id="@+id/view_section_type"
+                    android:id="@+id/view_section_feature"
                     layout="@layout/view_section"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/view_section_intro"
-                    app:message="@{viewModel.plant.type}"
-                    app:subject="@{@string/type}" />
+                    app:layout_constraintTop_toBottomOf="@id/view_section_brief"
+                    app:message="@{viewModel.plant.feature}"
+                    app:subject="@{@string/feature}" />
 
                 <include
-                    android:id="@+id/view_section_use"
+                    android:id="@+id/view_section_function"
+                    layout="@layout/view_section"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view_section_feature"
+                    app:message="@{viewModel.plant.function}"
+                    app:subject="@{@string/function}" />
+
+                <include
+                    android:id="@+id/view_section_update"
                     layout="@layout/view_section"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -85,9 +109,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/view_section_type"
-                    app:message="@{viewModel.plant.use}"
-                    app:subject="@{@string/use}" />
+                    app:layout_constraintTop_toBottomOf="@id/view_section_function"
+                    app:message="@{@string/msg_update + ` : ` + viewModel.plant.update}" />
 
             </android.support.constraint.ConstraintLayout>
 

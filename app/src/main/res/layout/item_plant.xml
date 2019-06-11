@@ -20,15 +20,15 @@
             android:id="@+id/iv_thumb"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_marginBottom="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:scaleType="centerCrop"
-            app:image="@{viewModel.plant.resId}"
+            app:image="@{viewModel.plant.picUrl}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/ic_butterfly" />
+            tools:src="@drawable/ic_fire_spike" />
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline"
@@ -42,35 +42,35 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:lines="1"
-            android:paddingBottom="8dp"
             android:paddingTop="8dp"
-            android:text="@{viewModel.plant.name}"
+            android:paddingBottom="8dp"
+            android:text="@{viewModel.plant.chineseName}"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@id/iv_nav_next"
             app:layout_constraintStart_toEndOf="@id/guideline"
             app:layout_constraintTop_toTopOf="@id/iv_thumb"
-            tools:text="@string/insect_house" />
+            tools:text="@string/fire_spike" />
 
         <TextView
-            android:id="@+id/tv_intro"
+            android:id="@+id/tv_alias"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:lines="2"
-            android:text="@{viewModel.plant.intro}"
+            android:text="@{viewModel.plant.alias}"
             android:textSize="14sp"
             app:layout_constraintEnd_toStartOf="@id/iv_nav_next"
             app:layout_constraintStart_toEndOf="@id/guideline"
             app:layout_constraintTop_toBottomOf="@id/tv_name"
-            tools:text="@string/msg_insect_house" />
+            tools:text="@string/msg_fire_spike_alias" />
 
         <ImageView
             android:id="@+id/iv_nav_next"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:paddingEnd="8dp"
             android:paddingStart="8dp"
+            android:paddingEnd="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
