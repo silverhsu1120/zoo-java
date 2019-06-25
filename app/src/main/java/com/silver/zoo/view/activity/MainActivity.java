@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         initView();
         initViewModel();
+        displayHouseList();
     }
 
     private void initView() {
@@ -57,61 +59,35 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        displayHouseList();
-    }
-
-    @Override
     public void onBackPressed() {
         processBackEvent();
     }
 
     private void displayHouseList() {
         viewModel.pushState(R.drawable.ic_menu_black, getString(R.string.app_name));
-        addFragment(HouseListFragment.newInstance(), TAG_HOUSE_LIST);
+        addFragment(HouseListFragment.newInstance(), TAG_HOUSE_LIST, false);
     }
 
     public void displayHouseInfo(House house) {
         viewModel.pushState(R.drawable.ic_arrow_back_black, house.getName());
-        addFragment(HouseInfoFragment.newInstance(house), TAG_HOUSE_INFO);
+        addFragment(HouseInfoFragment.newInstance(house), TAG_HOUSE_INFO, true);
     }
 
     public void displayPlantInfo(Plant plant) {
         viewModel.pushState(R.drawable.ic_arrow_back_black, plant.getChineseName());
-        addFragment(PlantInfoFragment.newInstance(plant), TAG_PLANT_INFO);
+        addFragment(PlantInfoFragment.newInstance(plant), TAG_PLANT_INFO, true);
     }
 
     private void processBackEvent() {
-        switch (viewModel.getStack().size()) {
-            case 3:
-                viewModel.popState();
-                removeFragment(getSupportFragmentManager().findFragmentByTag(TAG_PLANT_INFO));
-                break;
-            case 2:
-                viewModel.popState();
-                removeFragment(getSupportFragmentManager().findFragmentByTag(TAG_HOUSE_INFO));
-                break;
-            case 1:
-                finish();
-            default:
-                break;
-        }
+        viewModel.popState();
+        getSupportFragmentManager().popBackStack(null, 0);
     }
 
-    private void addFragment(Fragment f, String tag) {
-        getSupportFragmentManager()
-                .beginTransaction()
-                .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+    private void addFragment(Fragment f, String tag, boolean addToBackStack) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        if (addToBackStack) transaction.addToBackStack(null);
+        transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
                 .add(R.id.fl_container, f, tag)
-                .commitAllowingStateLoss();
-    }
-
-    private void removeFragment(Fragment f) {
-        getSupportFragmentManager()
-                .beginTransaction()
-                .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
-                .remove(f)
                 .commitAllowingStateLoss();
     }
 }
